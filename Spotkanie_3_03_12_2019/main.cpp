@@ -1,10 +1,8 @@
 #include <iostream>
 #include <fstream>
+#include "Function.h"
 #define _size 10
-void sort(int* tab, int size, bool(*f)(int& l, int& r));
-bool wyszukaj(int* tab, int size, int find);
-bool wieksze(int& l, int&r);
-bool mniejsze(int& l, int& r);
+
 int main() {
 	int size;
 	int* tab = nullptr;
@@ -28,18 +26,8 @@ int main() {
 	std::cout << "Podaj wartosc szukana: \n";
 	std::cin >> find;
 	system("cls");
-	/*tab[0] = 1;
-	tab[1] = 7;
-	tab[2] = 123;
-	tab[3] = 54;
-	tab[4] = 16;
-	tab[5] = 17;
-	tab[6] = 90;
-	tab[7] = 100;
-	tab[8] = 54;
-	tab[9] = 5;*/
-	sort(tab, _size,mniejsze);
-	if (wyszukaj(tab, _size, find)) {
+	sort<int>(tab, _size,mniejsze);
+	if (wyszukaj<int>(tab, _size, find)) {
 		std::cout << "Udalo sie znalesc " << find << "\n";
 	}
 	else {
@@ -53,42 +41,6 @@ int main() {
 	system("pause");
 	return 0;
 }
-void sort(int* tab, int size, bool(*f)(int& l, int& r)) {
-	int i; 
-	int temp;
-	bool b;
-	do {
-		b = false;
-		for (i = 0; i < size - 1; i++) {
-			if (f(tab[i],tab[i+1])) {
-				temp = tab[i];
-				tab[i] = tab[i + 1];
-				tab[i+1] = temp;
-				b = true;
-			}
-		}
-		size--;
-	} while (b);
-}
-bool wieksze(int& l, int&r) {
-	return l < r;
-}
-bool mniejsze(int& l, int& r) {
-	return l > r;
-}
-bool wyszukaj(int* tab, int size, int find) {
-	int left = 0;
-	int right = size;
-	int n;
-	if (find < tab[0] || tab[size - 1] < find) 
-		return false;
-	while (left<right)
-	{
-		n = (left + right) / 2;
-		if (tab[n] < find) left = n+1;
-		else if (tab[n] > find) right = n;
-		else if(tab[n] == find)
-			return true;
-	}
-	return false;
-}
+
+
+
